@@ -33,14 +33,14 @@ BROADCAST_HUMIDITY_AND_TEMPERATURE = "00002902-0000-1000-8000-00805f9b34fb"
 
 async def connect(address):
     async with BleakClient(address) as client:
-        try:
+        """ try:
             await client.connect()
         except TimeoutError: 
             print("Timeout at connect to %s", address)
             return
         except :
             print("Connection failed")
-            return
+            return """
             
         model_number = await client.read_gatt_char(MODEL_NBR_UUID)
         print("Model Number: {0}".format("".join(map(chr, model_number))))
