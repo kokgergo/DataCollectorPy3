@@ -20,7 +20,7 @@ async def checkDeviceAvaible(address):
     else:
         print(found)
         try:
-            await connect(found)
+            await connect(found, True)
         except Exception as e:
             print(e)
 
@@ -43,14 +43,14 @@ def processData(GattChar, data:bytearray):
     print("Temp: {0} Humid: {1} Batt: {2}".format(temp, humid, batt))
 
 
-async def connect(address):
-    async with BleakClient(address) as client:   
-        # model_number = await client.read_gatt_char(MODEL_NBR_UUID)
-        # print("Model Number: {0}".format("".join(map(chr, model_number))))
+async def connect(address, debug=False):
+    async with BleakClient(address) as client: 
+        #Get bytearray from device  
         actual_hum_and_temp = await client.read_gatt_char(ACTUAL_HUMIDITY_AND_TEMPERATURE)
-        print(actual_hum_and_temp)
+        #Parse bytearray to values
         temp, humidity, voltage = temp_humid_parser(actual_hum_and_temp)
-        print("Temp: {0} Humid: {1} Batt: {2}".format(temp, humidity, voltage))
+        if debug:
+            print("Temp: {0} Humid: {1} Batt: {2}".format(temp, humidity, voltage))
 
 def temp_humid_parser(data : bytearray):
     """ First two byte is the temperature*100 data little endian
@@ -77,7 +77,8 @@ def temp_humid_parser(data : bytearray):
 def main():
     loop = asyncio.get_event_loop()
     try:
-        asyncio.ensure_future(subscribe(address))
+        for addr in addresses:
+            asyncio.ensure_future(connect(addr))
         loop.run_forever()
     except KeyboardInterrupt:
         pass
