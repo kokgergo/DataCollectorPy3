@@ -12,7 +12,10 @@ async def checkDeviceAvaible(address):
         print("nothing")
     else:
         print(found)
-        await connect(found)
+        try:
+            await connect(found)
+        except Exception as e:
+            print(e)
 
 async def discoverDevices():
     devices = await BleakScanner.discover(timeout=10)
