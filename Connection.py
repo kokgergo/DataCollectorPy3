@@ -48,11 +48,11 @@ def temp_humid_parser(data : bytearray):
         Fourth and Fifth is Voltage level of the battery in mV little endian also
     """
     print("Raw data: {0}", data)
-    temp = int(data[0:1:-1])
+    temp = data[0:1:-1]
     print("Temperature: {0}", temp)
     humidity = int(data[2])
     print("Humidity: {0}", humidity)
-    battery = int(data[3:4:-1])
+    battery = data[3:4:-1]
     print("Battery: {0}", battery)
 
 
