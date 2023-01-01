@@ -77,8 +77,7 @@ def temp_humid_parser(data : bytearray):
 def main():
     loop = asyncio.get_event_loop()
     try:
-        for addr in addresses:
-            asyncio.ensure_future(subscribe(addr))
+        asyncio.ensure_future(subscribe(address))
         loop.run_forever()
     except KeyboardInterrupt:
         pass
