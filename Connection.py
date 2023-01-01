@@ -32,8 +32,11 @@ async def discoverDevices():
 
 
 async def subscribe(addr) :
-    async with BleakClient(addr) as client :
-        client.start_notify(54,processData)
+    try:
+        async with BleakClient(addr) as client :
+            client.start_notify(54,processData)
+    except Exception as e:
+        print(e)
 
 def processData(GattChar, data:bytearray):
     temp, humid, batt = temp_humid_parser(data)
