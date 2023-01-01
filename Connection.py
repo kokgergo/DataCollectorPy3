@@ -50,7 +50,7 @@ async def connect(address, debug=False):
         #Parse bytearray to values
         temp, humidity, voltage = temp_humid_parser(actual_hum_and_temp)
         if debug:
-            print("Temp: {0} Humid: {1} Batt: {2}".format(temp, humidity, voltage))
+            print("{3}: Temp: {0} Humid: {1} Batt: {2}".format(temp, humidity, voltage, address))
 
 def temp_humid_parser(data : bytearray):
     """ First two byte is the temperature*100 data little endian
