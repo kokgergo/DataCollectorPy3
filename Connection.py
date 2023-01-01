@@ -75,13 +75,14 @@ def temp_humid_parser(data : bytearray):
     return temp_float, humidity, battery_int
 
 def main():
-    """ for addr in addresses:
-        print(addr)
-        asyncio.run(subscribe(addr)) """
-    asyncio.run(subscribe(address))
-    print('Wait for something')
-    while True:
-        NotImplemented
-
+    loop = asyncio.get_event_loop()
+    try:
+        for addr in addresses:
+            asyncio.ensure_future(subscribe(addr))
+        loop.run_forever()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        print("Closing Loop")
+        loop.close() 
 main()
-
