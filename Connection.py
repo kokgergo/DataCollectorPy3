@@ -46,7 +46,7 @@ def processData(GattChar, data:bytearray):
 async def connect(address, debug=False):
     """ Connect to device. If debug active then print debug massage to screen""" 
     try:
-        async with BleakClient(address, timeout = 5) as client: 
+        async with BleakClient(address, timeout = 15) as client: 
             #Get bytearray from device  
             actual_hum_and_temp = await client.read_gatt_char(ACTUAL_HUMIDITY_AND_TEMPERATURE)
             #Parse bytearray to values
