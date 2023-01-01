@@ -74,6 +74,9 @@ def temp_humid_parser(data : bytearray):
 
     return temp_float, humidity, battery_int
 
+
+
+
 def main():
     loop = asyncio.get_event_loop()
     try:
@@ -82,6 +85,8 @@ def main():
         #loop.run_forever()
     except KeyboardInterrupt:
         pass
+    except Exception as e:
+        print(e)
     finally:
         print("Closing Loop")
         loop.close() 
