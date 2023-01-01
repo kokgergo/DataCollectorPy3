@@ -51,7 +51,7 @@ def temp_humid_parser(data : bytearray):
     print("Raw data: "+ data_str)
     temp = data[:1:]
     temp = temp[::-1]
-    temp_str = ''.join(format(d), '02x') for d in temp))
+    temp_str = ''.join(format(d, '02x') for d in temp)
     print("Temperature: ", temp_str)
     humidity = int(data[2])
     print("Humidity: {0}", humidity)
