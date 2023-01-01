@@ -44,13 +44,17 @@ def processData(GattChar, data:bytearray):
 
 
 async def connect(address, debug=False):
-    async with BleakClient(address) as client: 
-        #Get bytearray from device  
-        actual_hum_and_temp = await client.read_gatt_char(ACTUAL_HUMIDITY_AND_TEMPERATURE)
-        #Parse bytearray to values
-        temp, humidity, voltage = temp_humid_parser(actual_hum_and_temp)
-        if debug:
-            print("{3}: Temp: {0} Humid: {1} Batt: {2}".format(temp, humidity, voltage, address))
+    """ Connect to device. If debug active then print debug massage to screen""" 
+    try:
+        async with BleakClient(address, timeout = 5) as client: 
+            #Get bytearray from device  
+            actual_hum_and_temp = await client.read_gatt_char(ACTUAL_HUMIDITY_AND_TEMPERATURE)
+            #Parse bytearray to values
+            temp, humidity, voltage = temp_humid_parser(actual_hum_and_temp)
+            if debug:
+                print("{3}: Temp: {0} Humid: {1} Batt: {2}".format(temp, humidity, voltage, address))
+    except Exception as e:
+                    print(e)
 
 def temp_humid_parser(data : bytearray):
     """ First two byte is the temperature*100 data little endian
@@ -84,8 +88,6 @@ def main():
                 asyncio.run(connect(addr, True))
         except KeyboardInterrupt:
             return
-        except Exception as e:
-            print(e)
 
 
 main()
