@@ -52,13 +52,13 @@ def temp_humid_parser(data : bytearray):
     temp = data[:2:]
     temp = temp[::-1]
     temp_str = ''.join(format(d, '02x') for d in temp)
-    temp_int = int(temp)
+    temp_int = int.from_bytes(temp)
     print("Temperature: ", temp_int)
     humidity = int(data[2])
     print("Humidity: {0}", humidity)
     battery = data[:2:-1]
     battery_str = ''.join(format(d, '02x') for d in battery)
-    battery_int = int(battery)
+    battery_int = int.from_bytes(battery)
     print("Battery: {0}", battery_int)
 
 
