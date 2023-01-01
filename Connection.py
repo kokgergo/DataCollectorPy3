@@ -78,8 +78,8 @@ def main():
     loop = asyncio.get_event_loop()
     try:
         for addr in addresses:
-            asyncio.ensure_future(connect(addr))
-        loop.run_forever()
+            loop.run_until_complete(connect(addr))
+        #loop.run_forever()
     except KeyboardInterrupt:
         pass
     finally:
