@@ -34,7 +34,7 @@ async def discoverDevices():
 async def subscribe(addr) :
     try:
         async with BleakClient(addr) as client :
-            await client.start_notify(54,processData)
+            await client.start_notify(ACTUAL_HUMIDITY_AND_TEMPERATURE,processData)
     except Exception as e:
         print(e)
 
