@@ -47,7 +47,7 @@ def temp_humid_parser(data : bytearray):
         Third is humidity in %
         Fourth and Fifth is Voltage level of the battery in mV little endian also
     """
-    data_str = ''join(format(d, '02x') for d in data)
+    data_str = ''.join(format(d, '02x') for d in data)
     print("Raw data: "+ data_str)
     temp = data[:1:]
     temp = temp[::-1]
