@@ -36,9 +36,10 @@ BROADCAST_HUMIDITY_AND_TEMPERATURE = "00002902-0000-1000-8000-00805f9b34fb"
 
 async def connect(address):
     async with BleakClient(address) as client:   
-        model_number = await client.read_gatt_char(MODEL_NBR_UUID)
-        print("Model Number: {0}".format("".join(map(chr, model_number))))
+        # model_number = await client.read_gatt_char(MODEL_NBR_UUID)
+        # print("Model Number: {0}".format("".join(map(chr, model_number))))
         actual_hum_and_temp = await client.read_gatt_char(ACTUAL_HUMIDITY_AND_TEMPERATURE)
+        print(actual_hum_and_temp)
         temp_humid_parser(actual_hum_and_temp)
 
 def temp_humid_parser(data : bytearray):
